@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const {query, param,  validationResult} = require('express-validator')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+  
+
+  res.render('index');
 });
 
 
@@ -35,7 +39,10 @@ router.get('/parametros/:dato/piso/:piso/puerta/:puerta', (req, res, next) => {
 
 // Recibir dato Query String 
 // /querystring?dato=20
-router.get('/querystring', (req, res, next) => {
+router.get('/querystring', [
+   query('dato').isNumeric().withMessage('Se necesita un valor numérico')
+  ], (req, res, next) => {
+  validationResult(req).throw()
   const dato = req.query.dato;
   console.log(req.query);
   res.send('He recibido el dato:' + dato );
