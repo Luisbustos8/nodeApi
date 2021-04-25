@@ -13,7 +13,8 @@ mongoose.connection.once('open' , () => {
 
 mongoose.connect('mongodb://localhost/nodeAnuncios', {
     useNewUrlParser: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true,
+    useCreateIndex: true
 });
 
 module.exports = mongoose.connection;
